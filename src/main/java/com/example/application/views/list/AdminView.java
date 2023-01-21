@@ -15,7 +15,7 @@ public class AdminView extends VerticalLayout {
     public AdminView(BookService service) {
         var crud = new GridCrud<>(Book.class, service);
         crud.getGrid().setColumns("title","author", "published", "pages", "numberOf");
-        crud.getCrudFormFactory().setVisibleProperties("title", "published", "pages", "numberOf");
+        crud.getCrudFormFactory().setVisibleProperties("title", "author", "published", "pages", "numberOf");
 
         add(
                 new H1("Admin view"),

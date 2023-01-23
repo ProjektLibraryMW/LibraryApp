@@ -1,22 +1,21 @@
 package com.example.application.views.list;
 
 import com.example.application.backend.entity.Book;
+import com.example.application.backend.repository.BookRepository;
 import com.example.application.backend.service.BookService;
-import com.example.application.backend.service.BookShowService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.provider.DataProvider;
+import com.vaadin.flow.data.provider.DataProviderListener;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.LitRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.function.SerializableBiConsumer;
-import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import org.vaadin.crudui.crud.impl.GridCrud;
 
 @PageTitle("Biblioteka")
 @Route(value = "")
@@ -69,11 +68,21 @@ public class HomeView extends VerticalLayout {
         grid.addColumn(createStatusComponentRenderer()).setHeader("Dostępność")
                 .setAutoWidth(true);
         grid.addComponentColumn(book -> {Button editButton = new Button("Wypożycz");
-            editButton.addClickListener(e -> {
+            editButton.addClickListener(e -> { Wypozycz(book, service);
             });
             return editButton;
         });
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
+    }
+
+    private void Wypozycz(Book book, BookService service){
+
+        if(book.getNumberOf()>0) {
+            book.setNumberOf(book.getNumberOf() - 1);
+            service.update(book);
+            System.out.println(book.getNumberOf());
+        }
+        updateList();
     }
 
     private static final SerializableBiConsumer<Span, Book> statusComponentUpdater = (

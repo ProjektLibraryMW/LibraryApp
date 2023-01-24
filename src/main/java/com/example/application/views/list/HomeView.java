@@ -32,24 +32,23 @@ public class HomeView extends VerticalLayout {
 
         configureGrid();
 
-        add(grid
-        );
+        add(grid);
         updateList();
     }
 
-    private static Renderer<Book> createBookRenderer() {
-        return LitRenderer.<Book> of(
-                        "<vaadin-horizontal-layout style=\"align-items: center;\" theme=\"spacing\">"
-                                + "<vaadin-avatar img=\"${item.pictureUrl}\" name=\"${item.title}\" alt=\"User avatar\"></vaadin-avatar>"
-                                + "  <vaadin-vertical-layout style=\"line-height: var(--lumo-line-height-m);\">"
-                                + "    <span> ${item.title} </span>"
-                                + "    <span style=\"font-size: var(--lumo-font-size-s); color: var(--lumo-secondary-text-color);\">"
-                                + "      ${item.author}" + "    </span>"
-                                + "  </vaadin-vertical-layout>"
-                                + "</vaadin-horizontal-layout>")
-                .withProperty("title",book -> book.getTitle())
-                .withProperty("author", book -> book.getAuthor());
-    }
+//    private static Renderer<Book> createBookRenderer() {
+//        return LitRenderer.<Book> of(
+//                        "<vaadin-horizontal-layout style=\"align-items: center;\" theme=\"spacing\">"
+//                                + "<vaadin-avatar img=\"${item.pictureUrl}\" name=\"${item.title}\" alt=\"User avatar\"></vaadin-avatar>"
+//                                + "  <vaadin-vertical-layout style=\"line-height: var(--lumo-line-height-m);\">"
+//                                + "    <span> ${item.title} </span>"
+//                                + "    <span style=\"font-size: var(--lumo-font-size-s); color: var(--lumo-secondary-text-color);\">"
+//                                + "      ${item.author}" + "    </span>"
+//                                + "  </vaadin-vertical-layout>"
+//                                + "</vaadin-horizontal-layout>")
+//                .withProperty("title",book -> book.getTitle())
+//                .withProperty("author", book -> book.getAuthor());
+//    }
 
     private void configureForm() {
     }
@@ -88,7 +87,7 @@ public class HomeView extends VerticalLayout {
 
     };
 
-    private static String isAvailableBook(Book book)
+    public static String isAvailableBook(Book book)
     {
         String text = "";
         if(book.getNumberOf()>0){

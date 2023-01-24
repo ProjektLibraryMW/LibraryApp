@@ -32,4 +32,5 @@ public class BookService implements CrudListener<Book>{
     public void delete(Book book) {
         repository.delete(book);
     }
+
 }

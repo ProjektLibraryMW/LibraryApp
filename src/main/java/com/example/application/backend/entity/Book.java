@@ -31,4 +31,12 @@ public class Book {
     private Integer pages;
 
     private Integer numberOf;
+
+
+    public void setNumberOf(Integer numberOf) {
+        if(numberOf<0)
+            this.numberOf=0;
+        else
+            this.numberOf = numberOf;
+    }
 }

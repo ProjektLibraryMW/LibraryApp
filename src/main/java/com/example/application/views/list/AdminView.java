@@ -6,9 +6,13 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasValueAndElement;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.AfterNavigationEvent;
+import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.Theme;
 import org.vaadin.crudui.crud.CrudOperation;
 import org.vaadin.crudui.crud.impl.GridCrud;
 import org.vaadin.crudui.form.impl.form.factory.DefaultCrudFormFactory;
@@ -18,9 +22,9 @@ import org.vaadin.crudui.layout.impl.HorizontalSplitCrudLayout;
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
-@Route("admin")
-//@RolesAllowed("ADMIN")
-public class AdminView extends VerticalLayout {
+@Route(value="admin", layout = MainView.class)
+@RolesAllowed("ADMIN")
+public class AdminView extends VerticalLayout implements AfterNavigationObserver {
     public AdminView(BookService service) {
         DefaultCrudFormFactory<Book> formFactory = new DefaultCrudFormFactory<Book>(Book.class) {
             @Override
@@ -47,6 +51,8 @@ public class AdminView extends VerticalLayout {
         formFactory.setButtonCaption(CrudOperation.UPDATE, "Zaktualizuj");
         formFactory.setButtonCaption(CrudOperation.DELETE, "Usuń");
         formFactory.setCancelButtonCaption("Anuluj");
+        setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+        setAlignItems(FlexComponent.Alignment.CENTER);
         ((AbstractTwoComponentsCrudLayout) crud.getCrudLayout()).setFormCaption(CrudOperation.DELETE, "Czy na pewno chcesz usunąć ten tytuł z listy?");
 
         add(
@@ -60,5 +66,10 @@ public class AdminView extends VerticalLayout {
                 book -> service.update(book),
                 book -> service.delete(book)
         );
+    }
+
+    @Override
+    public void afterNavigation(AfterNavigationEvent afterNavigationEvent) {
+
     }
 }

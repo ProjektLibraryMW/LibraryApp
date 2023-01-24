@@ -5,7 +5,11 @@ import com.example.application.backend.repository.BookRepository;
 import com.example.application.backend.service.BookService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.DataProvider;
@@ -16,9 +20,13 @@ import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.function.SerializableBiConsumer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 
 @PageTitle("Biblioteka")
-@Route(value = "")
+@Route("")
+@AnonymousAllowed
 public class HomeView extends VerticalLayout {
 
     Grid<Book> grid = new Grid<>(Book.class);
@@ -28,10 +36,11 @@ public class HomeView extends VerticalLayout {
         this.service = service;
         addClassName("list-view");
         setSizeFull();
-
+        setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
+        setAlignItems(FlexComponent.Alignment.CENTER);
         configureGrid();
 
-        add(grid
+        add(new H1("Książki do wypożyczenia"),grid
         );
         updateList();
     }

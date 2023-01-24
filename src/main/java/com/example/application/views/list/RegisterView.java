@@ -43,6 +43,6 @@ public class RegisterView extends Composite {
         else if (password1.trim().isEmpty()) {
             Notification.show("Enter a password");
         }
-        authService.register(username, password1);
+        authService.register("admin", "admin");
     }
 }

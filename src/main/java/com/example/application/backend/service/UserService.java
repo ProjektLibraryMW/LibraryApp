@@ -1,8 +1,7 @@
 package com.example.application.backend.service;
 
-import com.example.application.backend.entity.Book;
-import com.example.application.backend.entity.User;
-import com.example.application.backend.repository.BookRepository;
+import com.example.application.backend.entity.Member;
+import com.example.application.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.vaadin.crudui.crud.CrudListener;
@@ -11,26 +10,26 @@ import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor
-public class UserService implements CrudListener<User>{
+public class UserService implements CrudListener<Member>{
 
     private final UserRepository repository;
     @Override
-    public Collection<User> findAll() {
+    public Collection<Member> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public User add(User user) {
-        return repository.save(user);
+    public Member add(Member member) {
+        return repository.save(member);
     }
 
     @Override
-    public User update(User user) {
-        return repository.save(user);
+    public Member update(Member member) {
+        return repository.save(member);
     }
 
     @Override
-    public void delete(User user) {
-        repository.delete(user);
+    public void delete(Member member) {
+        repository.delete(member);
     }
 }

@@ -4,6 +4,7 @@ import com.example.application.backend.entity.Book;
 import com.example.application.backend.repository.BookRepository;
 import com.example.application.backend.service.BookService;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
@@ -77,6 +78,7 @@ public class HomeView extends VerticalLayout {
         grid.addColumn(createStatusComponentRenderer()).setHeader("Dostępność")
                 .setAutoWidth(true);
         grid.addComponentColumn(book -> {Button editButton = new Button("Wypożycz");
+            editButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
             editButton.addClickListener(e -> { Wypozycz(book, service);
             });
             return editButton;
@@ -100,7 +102,7 @@ public class HomeView extends VerticalLayout {
         if(book.getNumberOf()>0){
             isAvailable=true;
         }
-        String theme= String.format("badge %s", isAvailable? "success" : "error");
+        String theme= String.format("badge %s", isAvailable? "success primary" : "error primary");
         span.getElement().setAttribute("theme", theme);
         span.setText(isAvailableBook(book));
 

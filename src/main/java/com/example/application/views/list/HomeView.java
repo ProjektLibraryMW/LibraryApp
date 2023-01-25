@@ -113,6 +113,7 @@ public class HomeView extends VerticalLayout {
         String text = "";
         if(book.getNumberOf()>0){
             text="Dostępna";
+
         }
         else {
             text="Niedostępna";

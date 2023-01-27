@@ -86,14 +86,19 @@ public class HomeView extends VerticalLayout {
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
-    private void Wypozycz(Book book, BookService service){
+    protected boolean Wypozycz(Book book, BookService service){
 
-        if(book.getNumberOf()>0) {
+        if(book.getNumberOf()<0) {
+            return false;
+        }else {
             book.setNumberOf(book.getNumberOf() - 1);
             service.update(book);
             System.out.println(book.getNumberOf());
+            updateList();
+            return true;
         }
-        updateList();
+
+
     }
 
     private static final SerializableBiConsumer<Span, Book> statusComponentUpdater = (
@@ -108,7 +113,7 @@ public class HomeView extends VerticalLayout {
 
     };
 
-    private static String isAvailableBook(Book book)
+    protected static String isAvailableBook(Book book)
     {
         String text = "";
         if(book.getNumberOf()>0){

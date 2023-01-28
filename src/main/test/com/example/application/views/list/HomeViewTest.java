@@ -3,6 +3,9 @@ package com.example.application.views.list;
 import com.example.application.backend.entity.Book;
 import com.example.application.backend.repository.BookRepository;
 import com.example.application.backend.service.BookService;
+import com.example.application.views.list.HomeView;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.function.SerializableBiConsumer;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import java.time.LocalDate;
@@ -20,15 +23,14 @@ public class HomeViewTest {
     HomeView homeView;
     BookService service;
 
-
-    @BeforeEach
-    public void setupData() {
-
-        //book = new Book(1,"test","testauthho", LocalDate.now(),1,1);
+    @Test
+    public void isFormPopulated() {
+        book1 = new Book(1,"test","testauthho", LocalDate.now(),1,1);
+        book2 = new Book(1,"test","test", LocalDate.now(),1,0);
     }
 
     @Test
-    public void isAvailableBook_test() {
+    public void testIsAvailableBook() {
 
         book1 = new Book(1,"test","testauthho", LocalDate.now(),1,1);
         book2 = new Book(1,"test","test", LocalDate.now(),1,0);
@@ -38,13 +40,20 @@ public class HomeViewTest {
 
 
     @Test
-    public void WypozyczTest()
+    public void testWypozycz()
     {
 
             book3 = new Book(1,"test","test", LocalDate.now(),1,1);
 
-            assertEquals(true,book3.getNumberOf() >0);
+        assertTrue(book3.getNumberOf() > 0);
 
+
+    }
+
+    @Test
+    public  void teststatusComponentUpdater() {
+        book1 = new Book(1, "test", "test", LocalDate.now(), 1, 1);
+        assertEquals("Dostępna", isAvailableBook(book1));
     }
 
 }

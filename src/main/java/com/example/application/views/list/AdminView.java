@@ -24,7 +24,7 @@ import java.util.List;
 
 @Route(value="admin", layout = MainView.class)
 @RolesAllowed("ADMIN")
-public class AdminView extends VerticalLayout implements AfterNavigationObserver {
+public class AdminView extends VerticalLayout {
     public AdminView(BookService service) {
         DefaultCrudFormFactory<Book> formFactory = new DefaultCrudFormFactory<Book>(Book.class) {
             @Override
@@ -68,8 +68,8 @@ public class AdminView extends VerticalLayout implements AfterNavigationObserver
         );
     }
 
-    @Override
-    public void afterNavigation(AfterNavigationEvent afterNavigationEvent) {
-
-    }
+//    @Override
+//    public void afterNavigation(AfterNavigationEvent afterNavigationEvent) {
+//
+//    }
 }

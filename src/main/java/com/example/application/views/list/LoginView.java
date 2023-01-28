@@ -1,6 +1,5 @@
 package com.example.application.views.list;
 
-import com.example.application.backend.service.AuthService;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,11 +13,13 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Book {
+
+    public Book() {
+
+    }
+
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +35,15 @@ public class Book {
 
     private Integer numberOf;
 
-
+    public Book(long Id, String title, String author, LocalDate published, Integer pages, Integer numberOf){
+        this.Id = Id;
+        this.title = title;
+        this.author = author;
+        this.published = published;
+        this.pages = pages;
+        this.numberOf = numberOf;
+        this.setNumberOf(numberOf);
+    }
     public void setNumberOf(Integer numberOf) {
         if(numberOf<0)
             this.numberOf=0;

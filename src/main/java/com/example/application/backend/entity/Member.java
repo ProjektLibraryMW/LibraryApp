@@ -12,7 +12,6 @@ import javax.persistence.Id;
 
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 public class Member {
 
@@ -25,10 +24,6 @@ public class Member {
     private String passwordHash;
     private Role  role;
 
-
-//    private String activationCode;
-
-//    private boolean active;
 
     public Member(String username, String password, Role role) {
         this.username = username;

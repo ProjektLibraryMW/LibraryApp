@@ -13,9 +13,9 @@ public class LoginViewTest {
     private LoginI18n login = LoginI18n.createDefault();
 
     @Test
-    public void testI18n() {
+    public void testLoginView() {
 
-        //LoginView login =  new LoginView();
+        LoginView loginView =  new LoginView();
         LoginI18n.Form i18 = login.getForm();
         LoginI18n.ErrorMessage i18error = login.getErrorMessage();
         Assert.assertEquals("Username", i18.getUsername());

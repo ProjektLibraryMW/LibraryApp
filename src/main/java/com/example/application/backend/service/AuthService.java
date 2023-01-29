@@ -52,10 +52,6 @@
 //////            routes.add(new AuthorizedRoute("home", "Home", HomeView.class));
 //////            routes.add(new AuthorizedRoute("logout", "Logout", LogoutView.class));
 ////
-////        if (role.equals(Role.ADMIN)) {
-////            routes.add(new AuthorizedRoute("admin", "Admin", AdminView.class));
-////            routes.add(new AuthorizedRoute("logout", "Logout", LogoutView.class));
-////        }
 ////
 ////        return routes;
 ////    }
@@ -67,20 +63,5 @@
 ////    public void register(String email, String password) {
 ////        User user = userRepository.save(new User(email, password, Role.USER));
 ////        String text = "http://localhost:8080/activate?code=" + user.getActivationCode();
-////        SimpleMailMessage message = new SimpleMailMessage();
-////        message.setFrom("noreply@example.com");
-////        message.setSubject("Confirmation email");
-////        message.setText(text);
-////        message.setTo(email);
-////        mailSender.send(message);
+
 //    }
-//
-////    public void activate(String activationCode) throws AuthException {
-////        User user = userRepository.getByActivationCode(activationCode);
-////        if (user != null) {
-////            user.setActive(true);
-////            userRepository.save(user);
-////        } else {
-////            throw new AuthException();
-////        }
-////    }

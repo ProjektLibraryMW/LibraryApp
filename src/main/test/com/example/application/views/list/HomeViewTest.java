@@ -55,7 +55,7 @@ public class HomeViewTest {
 
         book1 = new Book(1,"test","testauthho", LocalDate.now(),1,1);
         book2 = new Book(1,"test","test", LocalDate.now(),1,0);
-        assertEquals("Dostępna",isAvailableBook(book1));
+        assertEquals("Dostępna: 1 szt.",isAvailableBook(book1));
         assertEquals("Niedostępna",isAvailableBook(book2));
     }
 
@@ -74,7 +74,7 @@ public class HomeViewTest {
     @Test
     public  void teststatusComponentUpdater() {
         book1 = new Book(1, "test", "test", LocalDate.now(), 1, 1);
-        assertEquals("Dostępna", isAvailableBook(book1));
+        assertEquals("Dostępna: 1 szt.", isAvailableBook(book1));
     }
 
 }

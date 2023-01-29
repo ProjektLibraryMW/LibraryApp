@@ -49,11 +49,6 @@ public class SecurityConfig
         super.configure(web);
     }
 
-    /**
-     * Demo UserDetailsManager which only provides two hardcoded
-     * in memory users and their roles.
-     * NOTE: This shouldn't be used in real world applications.
-     */
     @Bean
     public UserDetailsManager userDetailsService() {
         UserDetails admin =

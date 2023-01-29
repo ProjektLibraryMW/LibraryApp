@@ -6,13 +6,19 @@ import com.example.application.backend.service.BookService;
 import com.example.application.views.list.HomeView;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.function.SerializableBiConsumer;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 import java.time.LocalDate;
 import java.util.Optional;
 
 import static com.example.application.views.list.HomeView.isAvailableBook;
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class HomeViewTest {
 
@@ -20,8 +26,23 @@ public class HomeViewTest {
     Book book1;
     Book book2;
     Book book3;
-    HomeView homeView;
+
+    @Mock
+    BookRepository bookRepository;
+    @InjectMocks
     BookService service;
+
+    @Before
+    public void setUp(){
+        MockitoAnnotations.initMocks(this);
+    }
+
+
+    @Test
+    public void HomeTest() {
+        HomeView admin = new HomeView(service);
+        assertNotNull(admin.grid.getColumns());
+    }
 
     @Test
     public void isFormPopulated() {

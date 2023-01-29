@@ -22,7 +22,7 @@ public class Member {
     private String username;
     private String passwordSalt;
     private String passwordHash;
-    private Role  role;
+    private Role role;
 
 
     public Member(String username, String password, Role role) {
@@ -35,6 +35,7 @@ public class Member {
     public boolean checkPassword(String password) {
         return DigestUtils.sha1Hex(password + passwordSalt).equals(passwordHash);
     }
+
     public Role getRole() {
         return role;
     }
@@ -42,12 +43,5 @@ public class Member {
     public void setRole(Role role) {
         this.role = role;
     }
-
-//    public boolean isActive() {
-//        return active;
-//    }
-//
-//    public void setActive(boolean active) {
-//        this.active = active;
-//    }
 }
+

@@ -37,6 +37,7 @@ public class AdminViewTest {
     public void AdminViewTest() {
         AdminView admin = new AdminView(bookService);
         var crud = new GridCrud<>(Book.class, new HorizontalSplitCrudLayout(), factory );
+        assertNotNull(crud.getGrid());
     }
 
 }

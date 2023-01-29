@@ -1,10 +1,8 @@
 package com.example.application.backend.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import net.bytebuddy.asm.Advice;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +21,7 @@ public class Book {
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private long id;
 
     private String title;
 
@@ -35,8 +33,8 @@ public class Book {
 
     private Integer numberOf;
 
-    public Book(long Id, String title, String author, LocalDate published, Integer pages, Integer numberOf){
-        this.Id = Id;
+    public Book(long id, String title, String author, LocalDate published, Integer pages, Integer numberOf){
+        this.id = id;
         this.title = title;
         this.author = author;
         this.published = published;

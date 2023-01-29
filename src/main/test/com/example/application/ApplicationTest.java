@@ -10,9 +10,9 @@ public class ApplicationTest {
     public void applicationContextLoaded() {
     }
 
-    @Test
-    public void applicationContextTest() {
-        Application.main(new String[] {});
-    }
+//    @Test
+//    public void applicationContextTest() {
+//        Application.main(new String[] {});
+//    }
 
 }

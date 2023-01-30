@@ -1,7 +1,6 @@
 package com.example.application.backend.entity;
 
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.time.LocalDate;
 
@@ -10,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BookTest {
 
     Book book1;
-    Book book2;
 
 
     @Test

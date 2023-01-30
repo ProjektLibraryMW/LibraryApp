@@ -7,9 +7,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.grid.dataview.GridListDataView;
-import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Span;
@@ -17,11 +15,9 @@ import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.textfield.TextFieldVariant;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.function.SerializableBiConsumer;
@@ -30,11 +26,9 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 @PageTitle("Biblioteka")
 @Route("")
@@ -54,7 +48,7 @@ public class HomeView extends VerticalLayout {
     Label confirmLabel = new Label("Ilość przedmiotów w koszyku: "+numberOfOrders);
     Button shoppingCartButton = new Button("Potwierdź zamówienie");
 
-    HorizontalLayout layout = new HorizontalLayout(confirmLabel, shoppingCartButton);
+    HorizontalLayout layout = new HorizontalLayout(shoppingCartButton, confirmLabel);
 
     BookService service;
     public HomeView(BookService service) {
@@ -77,8 +71,8 @@ public class HomeView extends VerticalLayout {
         H1 header = new H1("Książki do wypożyczenia");
         VerticalLayout vlayout = new VerticalLayout(header, searchField);
         vlayout.setAlignItems(Alignment.CENTER);
-        shoppingCartButton.addClickListener(e -> { Potwierdz();
-        });
+        shoppingCartButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        shoppingCartButton.addClickListener(e -> Potwierdz());
 
         layout.setWidthFull();
         layout.setAlignItems(Alignment.CENTER);
@@ -105,7 +99,7 @@ public class HomeView extends VerticalLayout {
            Book book = repository.getByTitle(entry.getKey());
            book.setNumberOf(book.getNumberOf() - entry.getValue());
            service.update(book);
-           System.out.println(repository.findAll().stream().count());
+           System.out.println((long) repository.findAll().size());
            updateList();
         }
         updateList();
@@ -129,19 +123,18 @@ public class HomeView extends VerticalLayout {
         grid.addClassNames("contact-grid");
         grid.setSizeFull();
         grid.setColumns();
-        Grid.Column<Book> title = grid.addColumn(book -> book.getTitle()).setHeader("Tytuł").setSortable(true);
-        Grid.Column<Book> author = grid.addColumn(book -> book.getAuthor()).setHeader("Autor").setSortable(true);
-        grid.addColumn(book -> book.getPublished()).setHeader("Data publikacji").setSortable(true);
-        grid.addColumn(book -> book.getPages()).setHeader("Ilość stron").setSortable(true);
+        Grid.Column<Book> title = grid.addColumn(Book::getTitle).setHeader("Tytuł").setSortable(true);
+        Grid.Column<Book> author = grid.addColumn(Book::getAuthor).setHeader("Autor").setSortable(true);
+        grid.addColumn(Book::getPublished).setHeader("Data publikacji").setSortable(true);
+        grid.addColumn(Book::getPages).setHeader("Ilość stron").setSortable(true);
         Grid.Column<Book> badgeColumn = grid.addColumn(createStatusComponentRenderer()).setHeader("Dostępność")
-                .setAutoWidth(true).setSortable(true).setComparator(book->book.getNumberOf());
+                .setAutoWidth(true).setSortable(true).setComparator(Book::getNumberOf);
         Grid.Column<Book> last = grid.addComponentColumn(book -> {Button editButton = new Button("Wypożycz");
-            if(isAvailableBook(book)=="Niedostępna"){
+            if(isAvailableBook(book).equals("Niedostępna")){
                 editButton.setVisible(false);
             }
             editButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-            editButton.addClickListener(e -> { Wypozycz(book, service);
-            });
+            editButton.addClickListener(e -> Wypozycz(book));
             return editButton;
         });
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
@@ -151,10 +144,8 @@ public class HomeView extends VerticalLayout {
     }
 
 
-    protected void Wypozycz(Book book, BookService service){
-
-        if(book.getNumberOf()<0) {
-        }else {
+    protected void Wypozycz(Book book){
+        if(book.getNumberOf()>0) {
             System.out.println(book.getNumberOf());
             int k = order.getOrDefault(book.getTitle(), 0);
             if(k>=book.getNumberOf()) {
@@ -181,10 +172,7 @@ public class HomeView extends VerticalLayout {
 
     private static final SerializableBiConsumer<Span, Book> statusComponentUpdater = (
             span, book)-> {
-        boolean isAvailable = false;
-        if(book.getNumberOf()>0){
-            isAvailable=true;
-        }
+        boolean isAvailable = book.getNumberOf() > 0;
         String theme= String.format("badge %s", isAvailable? "success primary" : "error primary");
         span.getElement().setAttribute("theme", theme);
         span.setText(isAvailableBook(book));
@@ -193,7 +181,7 @@ public class HomeView extends VerticalLayout {
 
     protected static String isAvailableBook(Book book)
     {
-        String text = "";
+        String text;
         if(book.getNumberOf()>0){
             text="Dostępna: "+book.getNumberOf() + " szt.";
 

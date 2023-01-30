@@ -2,9 +2,7 @@ package com.example.application.views.list;
 
 import com.example.application.backend.entity.Book;
 import com.example.application.backend.repository.BookRepository;
-import com.example.application.backend.repository.UserRepository;
 import com.example.application.backend.service.BookService;
-import com.example.application.backend.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -34,7 +32,7 @@ public class AdminViewTest {
     }
 
     @Test
-    public void AdminViewTest() {
+    public void AdminTest() {
         AdminView admin = new AdminView(bookService);
         var crud = new GridCrud<>(Book.class, new HorizontalSplitCrudLayout(), factory );
         assertNotNull(crud.getGrid());

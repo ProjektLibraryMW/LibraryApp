@@ -22,7 +22,7 @@ import java.util.List;
 @RolesAllowed("ADMIN")
 public class AdminView extends VerticalLayout {
     public AdminView(BookService service) {
-        DefaultCrudFormFactory<Book> formFactory = new DefaultCrudFormFactory<Book>(Book.class) {
+        DefaultCrudFormFactory<Book> formFactory = new DefaultCrudFormFactory<>(Book.class) {
             @Override
             protected void configureForm(FormLayout formLayout, List<HasValueAndElement> fields) {
                 Component nameField = (Component) fields.get(0);
@@ -57,15 +57,11 @@ public class AdminView extends VerticalLayout {
         );
 
         crud.setOperations(
-                () -> service.findAll(),
-                book -> service.add(book),
-                book -> service.update(book),
-                book -> service.delete(book)
+                service::findAll,
+                service::add,
+                service::update,
+                service::delete
         );
     }
 
-//    @Override
-//    public void afterNavigation(AfterNavigationEvent afterNavigationEvent) {
-//
-//    }
 }

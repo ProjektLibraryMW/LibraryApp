@@ -1,13 +1,9 @@
 package com.example.application.views.list;
 
-import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 public class LoginViewTest {
 
     private LoginI18n login = LoginI18n.createDefault();
